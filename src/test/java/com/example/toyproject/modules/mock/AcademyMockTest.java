@@ -1,6 +1,7 @@
 package com.example.toyproject.modules.mock;
 
 import com.example.toyproject.config.security.SecurityConfig;
+import com.example.toyproject.config.security.SecurityTokenProvider;
 import com.example.toyproject.modules.academy.controller.AcademyController;
 import com.example.toyproject.modules.academy.enums.AcademyConst;
 import com.example.toyproject.modules.academy.request.AcademySaveRequest;
@@ -9,9 +10,11 @@ import com.example.toyproject.modules.user.entity.User;
 import com.example.toyproject.modules.user.enums.UserConst;
 import com.example.toyproject.modules.user.request.UserSaveRequest;
 import com.example.toyproject.modules.user.service.UserService;
+import com.example.toyproject.security.WithMockCustomUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -43,10 +46,14 @@ public class AcademyMockTest {
     @MockBean
     private UserService userService;
 
+    @MockBean
+    private SecurityTokenProvider tokenProvider;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
     @DisplayName("학원 회원가입 Valid 실패")
+    @WithMockCustomUser()
     void saveAcademyValidFail() throws Exception {
         AcademySaveRequest request = new AcademySaveRequest(
                 "",
@@ -71,6 +78,7 @@ public class AcademyMockTest {
 
     @Test
     @DisplayName("학원 회원가입 성공")
+    @WithMockCustomUser()
     void saveAcademySuccess() throws Exception {
         User user = UserConst.academyUser;
         UserSaveRequest userSaveRequest = UserConst.saveRequest;
@@ -106,12 +114,13 @@ public class AcademyMockTest {
                 .andExpect(jsonPath("$.academyName").value("윤선생영어교실 석포초점"))
                 .andExpect(jsonPath("$.contact").value("051-111-1111"))
                 .andExpect(jsonPath("$.phone").value("010-1111-1111"))
-                .andExpect(jsonPath("$.username").value("kkr"))
+                .andExpect(jsonPath("$.user.username").value("yoon"))
         ;
     }
 
     @Test
     @DisplayName("학원 상세 조회 Valid 실패")
+    @WithMockCustomUser()
     void getAcademyValidFail() throws Exception {
         Long id = 0L;
 
@@ -133,6 +142,7 @@ public class AcademyMockTest {
 
     @Test
     @DisplayName("학원 상세 조회 성공")
+    @WithMockCustomUser()
     void getAcademySuccess() throws Exception {
         Long id = 1L;
 
@@ -154,7 +164,7 @@ public class AcademyMockTest {
                 .andExpect(jsonPath("$.academyName").value("윤선생영어교실 석포초점"))
                 .andExpect(jsonPath("$.contact").value("051-111-1111"))
                 .andExpect(jsonPath("$.phone").value("010-1111-1111"))
-                .andExpect(jsonPath("$.username").value("kkr"))
+                .andExpect(jsonPath("$.user.username").value("yoon"))
         ;
     }
 }

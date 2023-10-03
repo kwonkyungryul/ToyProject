@@ -36,8 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(UserController.class)
 @MockBean(JpaMetamodelMappingContext.class)
-//@ContextConfiguration(classes = SecurityConfig.class)
-//@Import({SecurityConfig.class})
+@Import({SecurityConfig.class})
 public class UserMockTest {
 
     @Autowired
@@ -45,6 +44,9 @@ public class UserMockTest {
 
     @MockBean
     private UserService userService;
+
+    @MockBean
+    private SecurityTokenProvider tokenProvider;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
 
@@ -59,7 +61,7 @@ public class UserMockTest {
         );
 
         ResultActions perform = mvc.perform(
-                get("/user/{id}", id)
+                get("/users/{id}", id)
         );
 
         perform
@@ -88,7 +90,7 @@ public class UserMockTest {
         );
 
         ResultActions perform = mvc.perform(
-                get("/user/{id}", id)
+                get("/users/{id}", id)
         );
 
         perform
@@ -110,7 +112,7 @@ public class UserMockTest {
         );
 
         ResultActions perform = mvc.perform(
-                get("/user/{id}", id)
+                get("/users/{id}", id)
                         .accept("application/json")
         );
 

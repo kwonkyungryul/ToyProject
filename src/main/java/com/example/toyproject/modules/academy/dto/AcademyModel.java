@@ -19,7 +19,6 @@ public class AcademyModel extends RepresentationModel<AcademyModel> {
     String academyName;
     String contact;
     String phone;
-    String username;
     String createDate;
 
     UserModel user;

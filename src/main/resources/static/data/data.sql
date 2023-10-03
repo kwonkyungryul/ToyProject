@@ -1,7 +1,7 @@
 INSERT INTO USERS(created_date, modified_date, username, password, role, status)
 VALUES
-    ('2023-09-20 22:48:00', '2023-09-20 22:48:00', 'yoon', '1234', 'ACADEMY', 'ACTIVE'),
-    ('2023-09-20 22:48:00', '2023-09-20 22:48:00', 'yoon2', '1234', 'ACADEMY', 'ACTIVE');
+    ('2023-09-20 22:48:00', '2023-09-20 22:48:00', 'yoon', '$2a$10$aMjDZYj.qOC8MpMtNBA7o.d69GUfDFtuVPpooW6il6Z9S2gb1oLuW', 'ACADEMY', 'ACTIVE'),
+    ('2023-09-20 22:48:00', '2023-09-20 22:48:00', 'yoon2', '$2a$10$aMjDZYj.qOC8MpMtNBA7o.d69GUfDFtuVPpooW6il6Z9S2gb1oLuW', 'ACADEMY', 'ACTIVE');
 
 
 INSERT INTO ACADEMIES(created_date, modified_date, full_name, academy_name, contact, phone, user_id, status)

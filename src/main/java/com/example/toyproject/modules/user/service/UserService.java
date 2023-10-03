@@ -1,12 +1,11 @@
 package com.example.toyproject.modules.user.service;
 
-import com.example.toyproject.modules.academy.request.AcademySaveRequest;
 import com.example.toyproject.modules.user.entity.User;
 import com.example.toyproject.modules.user.enums.RoleType;
 import com.example.toyproject.modules.user.enums.UserStatus;
 import com.example.toyproject.modules.user.repository.UserRepository;
 import com.example.toyproject.modules.user.request.UserSaveRequest;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,8 +15,11 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User save(UserSaveRequest request) {
@@ -25,7 +27,7 @@ public class UserService {
                 new User(
                         null,
                         request.username(),
-                        request.password(),
+                        passwordEncoder.encode(request.password()),
                         RoleType.ACADEMY,
                         UserStatus.ACTIVE
                 )
@@ -33,7 +35,7 @@ public class UserService {
     }
 
     public Optional<User> getUser(Long id) {
-        return null;
+        return userRepository.findById(id);
     }
 
 }

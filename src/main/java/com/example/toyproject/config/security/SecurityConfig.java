@@ -81,11 +81,12 @@ public class SecurityConfig {
 
         // 11. 인증, 권한 필터 설정
         http.authorizeHttpRequests(
-                // TODO URL 설정 해야 함
                 authorize -> authorize
-//                        .requestMatchers("").authenticated()
+                        // TODO ㅡㅡ 왜 안 됨 ? ? ? ?
+//                        .requestMatchers("/users/**").permitAll()
 //                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().permitAll()
+//                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
         );
         return http.build();
     }
