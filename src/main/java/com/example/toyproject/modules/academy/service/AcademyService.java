@@ -4,6 +4,7 @@ import com.example.toyproject.modules.academy.entity.Academy;
 import com.example.toyproject.modules.academy.repository.AcademyRepository;
 import com.example.toyproject.modules.academy.request.AcademySaveRequest;
 import com.example.toyproject.modules.common.request.LoginRequest;
+import com.example.toyproject.modules.user.entity.User;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,7 +22,7 @@ public class AcademyService {
         return academyRepository.findById(id);
     }
 
-    public Academy save(AcademySaveRequest request) {
-        return academyRepository.save(request.toEntity());
+    public Academy save(AcademySaveRequest request, User user) {
+        return academyRepository.save(request.toEntity(user));
     }
 }

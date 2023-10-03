@@ -1,6 +1,8 @@
 package com.example.toyproject.modules.academy.dto;
 
 import com.example.toyproject.modules.academy.entity.Academy;
+import com.example.toyproject.modules.user.UserModelAssembler;
+import com.example.toyproject.modules.user.dto.UserModel;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
@@ -20,13 +22,16 @@ public class AcademyModel extends RepresentationModel<AcademyModel> {
     String username;
     String createDate;
 
+    UserModel user;
+
     public AcademyModel(Academy academy) {
         this.id = academy.getId();
         this.fullName = academy.getFullName();
         this.academyName = academy.getAcademyName();
         this.contact = academy.getContact();
         this.phone = academy.getPhone();
-        this.username = academy.getUsername();
+
+        this.user = new UserModelAssembler().toModel(academy.getUser());
         if (academy.getCreatedDate() == null ) {
             academy.changeCreatedDate(null);
         }

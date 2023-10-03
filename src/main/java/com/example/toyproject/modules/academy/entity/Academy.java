@@ -2,6 +2,7 @@ package com.example.toyproject.modules.academy.entity;
 
 import com.example.toyproject.modules.academy.enums.AcademyStatus;
 import com.example.toyproject.modules.common.jpa.BaseTime;
+import com.example.toyproject.modules.user.entity.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,11 +35,9 @@ public class Academy extends BaseTime {
     @Comment("학원장 연락처")
     private String phone;
 
-    @Comment("아이디")
-    private String username;
-
-    @Comment("비밀번호")
-    private String password;
+    @Comment("유저 로그인 정보")
+    @ManyToOne
+    private User user;
 
     // TODO 엔티티로 뺄 예정
 //    @Comment("학원 FCM 토큰")

@@ -1,6 +1,5 @@
-package com.example.toyproject.config;
+package com.example.toyproject.config.security;
 
-import com.example.toyproject.auth.JwtAuthorizationFilter;
 import com.example.toyproject.modules.common.exception.Exception401;
 import com.example.toyproject.modules.common.exception.Exception403;
 import com.example.toyproject.util.FilterResponseUtil;
@@ -8,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
@@ -23,19 +21,15 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 public class SecurityConfig {
 
+    final SecurityTokenProvider securityTokenProvider;
+
+    public SecurityConfig(SecurityTokenProvider securityTokenProvider) {
+        this.securityTokenProvider = securityTokenProvider;
+    }
+
     @Bean
     BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    public static class CustomSecurityFilterManager extends AbstractHttpConfigurer<CustomSecurityFilterManager, HttpSecurity> {
-        @Override
-        public void configure(HttpSecurity builder) throws Exception {
-            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-            builder.addFilter(new JwtAuthorizationFilter(authenticationManager));
-            // 시큐리티 관련 필터
-            super.configure(builder);
-        }
     }
 
     @Bean
@@ -65,8 +59,8 @@ public class SecurityConfig {
 
         http.httpBasic(AbstractHttpConfigurer::disable);
 
-        // 7. 커스텀 필터 적용 (시큐리티 필터 교환)
-        http.apply(new CustomSecurityFilterManager());
+        // 7. 커스텀 필터 적용
+        http.apply(new SecurityFilterConfig(securityTokenProvider));
 
         // 8. 인증 실패 처리
         http.exceptionHandling(

@@ -2,7 +2,10 @@ package com.example.toyproject.modules.academy.request;
 
 import com.example.toyproject.modules.academy.entity.Academy;
 import com.example.toyproject.modules.academy.enums.AcademyStatus;
+import com.example.toyproject.modules.user.entity.User;
+import com.example.toyproject.modules.user.request.UserSaveRequest;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record AcademySaveRequest(
 
@@ -18,22 +21,18 @@ public record AcademySaveRequest(
         @NotBlank(message = "학원장 연락처를 입력해주세요.")
         String phone,
 
-        @NotBlank(message = "아이디를 입력해주세요.")
-        String username,
-
-        @NotBlank(message = "비밀번호를 입력해주세요.")
-        String password
+        @NotNull(message = "유저 정보를 입력해주세요.")
+        UserSaveRequest userSaveRequest
 ) {
 
-        public Academy toEntity() {
+        public Academy toEntity(User user) {
                 return new Academy(
                         null,
                         fullName,
                         academyName,
                         contact,
                         phone,
-                        username,
-                        password,
+                        user,
                         AcademyStatus.valueOf("ACTIVE")
                 );
         }

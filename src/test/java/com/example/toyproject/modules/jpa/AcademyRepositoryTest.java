@@ -4,6 +4,9 @@ import com.example.toyproject.modules.academy.entity.Academy;
 import com.example.toyproject.modules.academy.enums.AcademyStatus;
 import com.example.toyproject.modules.academy.repository.AcademyRepository;
 import com.example.toyproject.modules.common.jpa.BaseTime;
+import com.example.toyproject.modules.user.entity.User;
+import com.example.toyproject.modules.user.enums.RoleType;
+import com.example.toyproject.modules.user.enums.UserConst;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,14 +29,11 @@ public class AcademyRepositoryTest extends BaseTime {
 
     @BeforeEach
     public void init() {
-        entityManager.clear();
         setup(
             "권경렬",
             "윤선생아카데미석포초점",
             "051-111-1111",
             "010-1234-1234",
-            "yoon",
-            "1234",
             AcademyStatus.ACTIVE
         );
     }
@@ -47,8 +47,6 @@ public class AcademyRepositoryTest extends BaseTime {
         assertEquals(academies.get(0).getAcademyName(), "윤선생아카데미석포초점");
         assertEquals(academies.get(0).getContact(), "051-111-1111");
         assertEquals(academies.get(0).getPhone(), "010-1234-1234");
-        assertEquals(academies.get(0).getUsername(), "yoon");
-        assertEquals(academies.get(0).getPassword(), "1234");
         assertEquals(academies.get(0).getStatus(), AcademyStatus.ACTIVE);
     }
 
@@ -63,15 +61,13 @@ public class AcademyRepositoryTest extends BaseTime {
             assertEquals(result.getAcademyName(), "윤선생아카데미석포초점");
             assertEquals(result.getContact(), "051-111-1111");
             assertEquals(result.getPhone(), "010-1234-1234");
-            assertEquals(result.getUsername(), "yoon");
-            assertEquals(result.getPassword(), "1234");
             assertEquals(result.getStatus(), AcademyStatus.ACTIVE);
 
-            String updatePassword = "12345";
-            result.setPassword(updatePassword);
+            String updateFullName = "김경렬";
+            result.setFullName(updateFullName);
             Academy merge = entityManager.merge(result);
 
-            assertEquals(merge.getPassword(), "12345");
+            assertEquals(merge.getFullName(), "김경렬");
         } else {
             assertNotNull(optionalAcademy.get());
         }
@@ -84,8 +80,6 @@ public class AcademyRepositoryTest extends BaseTime {
                 "윤선생아카데미석포초2호점",
                 "051-222-2222",
                 "010-2222-2222",
-                "yoon2",
-                "1234",
                 AcademyStatus.ACTIVE
         );
 
@@ -98,8 +92,8 @@ public class AcademyRepositoryTest extends BaseTime {
             assertEquals(result.getAcademyName(), "윤선생아카데미석포초3호점");
             assertEquals(result.getContact(), "051-333-3333");
             assertEquals(result.getPhone(), "010-3333-3333");
-            assertEquals(result.getUsername(), "yoon3");
-            assertEquals(result.getPassword(), "1234");
+            assertEquals(result.getUser().getUsername(), "yoon3");
+            assertEquals(result.getUser().getPassword(), "1234");
             assertEquals(result.getStatus(), AcademyStatus.ACTIVE);
 
             entityManager.remove(result);
@@ -113,7 +107,7 @@ public class AcademyRepositoryTest extends BaseTime {
     }
 
 
-    private Academy setup(String fullName, String academyName, String contact, String phone, String username, String password, AcademyStatus status) {
+    private Academy setup(String fullName, String academyName, String contact, String phone, AcademyStatus status) {
         return entityManager.persist(
                 new Academy(
                 null,
@@ -121,8 +115,7 @@ public class AcademyRepositoryTest extends BaseTime {
                 academyName,
                 contact,
                 phone,
-                username,
-                password,
+                null,
                 status
             )
         );

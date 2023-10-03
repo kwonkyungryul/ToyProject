@@ -7,6 +7,8 @@ import com.example.toyproject.modules.academy.enums.AcademyConst;
 import com.example.toyproject.modules.academy.request.AcademySaveRequest;
 import com.example.toyproject.modules.academy.service.AcademyService;
 import com.example.toyproject.modules.common.exception.Exception400;
+import com.example.toyproject.modules.user.entity.User;
+import com.example.toyproject.modules.user.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -20,8 +22,11 @@ public class AcademyController {
 
     private final AcademyService academyService;
 
-    public AcademyController(AcademyService academyService) {
+    private final UserService userService;
+
+    public AcademyController(AcademyService academyService, UserService userService) {
         this.academyService = academyService;
+        this.userService = userService;
     }
 
     @PostMapping("/join")
@@ -32,7 +37,9 @@ public class AcademyController {
             throw new Exception400(errors.getAllErrors().get(0).getDefaultMessage());
         }
 
-        Academy academy = academyService.save(request);
+        User saveUser = userService.save(request.userSaveRequest());
+
+        Academy academy = academyService.save(request, saveUser);
 
         return ResponseEntity.ok(
                 new AcademyModelAssembler().toModel(academy)

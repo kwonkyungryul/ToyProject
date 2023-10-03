@@ -1,10 +1,14 @@
 package com.example.toyproject.modules.mock;
 
-import com.example.toyproject.config.SecurityConfig;
+import com.example.toyproject.config.security.SecurityConfig;
 import com.example.toyproject.modules.academy.controller.AcademyController;
 import com.example.toyproject.modules.academy.enums.AcademyConst;
 import com.example.toyproject.modules.academy.request.AcademySaveRequest;
 import com.example.toyproject.modules.academy.service.AcademyService;
+import com.example.toyproject.modules.user.entity.User;
+import com.example.toyproject.modules.user.enums.UserConst;
+import com.example.toyproject.modules.user.request.UserSaveRequest;
+import com.example.toyproject.modules.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -36,6 +40,9 @@ public class AcademyMockTest {
     @MockBean
     private AcademyService academyService;
 
+    @MockBean
+    private UserService userService;
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Test
@@ -46,8 +53,7 @@ public class AcademyMockTest {
                 "윤선생영어교실 석포초점",
                 "051-111-1111",
                 "010-1111-1111",
-                "kkr",
-                "1234"
+                UserConst.saveRequest
         );
 
         ResultActions perform = this.mvc.perform(
@@ -66,16 +72,22 @@ public class AcademyMockTest {
     @Test
     @DisplayName("학원 회원가입 성공")
     void saveAcademySuccess() throws Exception {
+        User user = UserConst.academyUser;
+        UserSaveRequest userSaveRequest = UserConst.saveRequest;
+
         AcademySaveRequest request = new AcademySaveRequest(
                 "권경렬",
                 "윤선생영어교실 석포초점",
                 "051-111-1111",
                 "010-1111-1111",
-                "kkr",
-                "1234"
+                UserConst.saveRequest
         );
 
-        given(this.academyService.save(request)).willReturn(
+        given(this.userService.save(userSaveRequest)).willReturn(
+                user
+        );
+
+        given(this.academyService.save(request, user)).willReturn(
                 AcademyConst.academy
         );
 
