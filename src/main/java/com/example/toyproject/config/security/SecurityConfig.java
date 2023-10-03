@@ -85,8 +85,8 @@ public class SecurityConfig {
                         // TODO ㅡㅡ 왜 안 됨 ? ? ? ?
 //                        .requestMatchers("/users/**").permitAll()
 //                        .requestMatchers("/admin/**").hasRole("ADMIN")
-//                        .anyRequest().permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
+//                        .anyRequest().authenticated()
         );
         return http.build();
     }

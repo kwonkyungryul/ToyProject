@@ -43,6 +43,9 @@ public class Academy extends BaseTime {
 //    @Comment("학원 FCM 토큰")
 //    private String fcmToken;
 
+    @Comment("학원 고유 코드값")
+    private String code;
+
     @Comment("학원 활성화 상태")
     @Enumerated(EnumType.STRING)
     private AcademyStatus status;

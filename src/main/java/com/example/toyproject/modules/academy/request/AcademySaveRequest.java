@@ -33,6 +33,7 @@ public record AcademySaveRequest(
                         contact,
                         phone,
                         user,
+                        null,
                         AcademyStatus.valueOf("ACTIVE")
                 );
         }
