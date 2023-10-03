@@ -116,6 +116,7 @@ public class AcademyRepositoryTest extends BaseTime {
                 contact,
                 phone,
                 null,
+                null,
                 status
             )
         );

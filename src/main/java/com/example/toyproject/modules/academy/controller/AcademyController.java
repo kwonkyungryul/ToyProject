@@ -37,12 +37,12 @@ public class AcademyController {
             throw new Exception400(errors.getAllErrors().get(0).getDefaultMessage());
         }
 
-        User saveUser = userService.save(request.userSaveRequest());
+        User saveUser = userService.save(request.request());
 
-        Academy academy = academyService.save(request, saveUser);
+        Academy saveAcademy = academyService.save(request, saveUser);
 
         return ResponseEntity.ok(
-                new AcademyModelAssembler().toModel(academy)
+                new AcademyModelAssembler().toModel(saveAcademy)
         );
     }
 

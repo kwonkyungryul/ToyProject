@@ -119,7 +119,7 @@ public class AcademyMockTest {
     }
 
     @Test
-    @DisplayName("학원 상세 조회 Valid 실패")
+    @DisplayName("학원 상세 조회 실패 - 학원 정보 없음")
     @WithMockCustomUser()
     void getAcademyValidFail() throws Exception {
         Long id = 0L;

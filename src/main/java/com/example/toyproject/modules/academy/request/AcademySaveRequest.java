@@ -22,7 +22,7 @@ public record AcademySaveRequest(
         String phone,
 
         @NotNull(message = "유저 정보를 입력해주세요.")
-        UserSaveRequest userSaveRequest
+        UserSaveRequest request
 ) {
 
         public Academy toEntity(User user) {
