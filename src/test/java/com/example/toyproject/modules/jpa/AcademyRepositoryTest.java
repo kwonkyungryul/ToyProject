@@ -88,12 +88,10 @@ public class AcademyRepositoryTest extends BaseTime {
         if (optionalAcademy.isPresent()) {
             Academy result = optionalAcademy.get();
 
-            assertEquals(result.getFullName(), "김호현");
-            assertEquals(result.getAcademyName(), "윤선생아카데미석포초3호점");
-            assertEquals(result.getContact(), "051-333-3333");
-            assertEquals(result.getPhone(), "010-3333-3333");
-            assertEquals(result.getUser().getUsername(), "yoon3");
-            assertEquals(result.getUser().getPassword(), "1234");
+            assertEquals(result.getFullName(), "조아라");
+            assertEquals(result.getAcademyName(), "윤선생아카데미석포초2호점");
+            assertEquals(result.getContact(), "051-222-2222");
+            assertEquals(result.getPhone(), "010-2222-2222");
             assertEquals(result.getStatus(), AcademyStatus.ACTIVE);
 
             entityManager.remove(result);

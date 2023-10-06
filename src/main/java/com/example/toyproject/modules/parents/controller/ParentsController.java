@@ -54,14 +54,14 @@ public class ParentsController {
     public ResponseEntity<ParentsModel> getParents(
             @PathVariable Long id
     ) {
-        Optional<Parents> parents = parentsService.getParents(id);
+        Optional<Parents> optionalParents = parentsService.getParents(id);
 
-        if (parents.isEmpty()) {
+        if (optionalParents.isEmpty()) {
             throw new Exception400(ParentsConst.notFound);
         }
 
         return ResponseEntity.ok(
-                new ParentsModelAssembler().toModel(parents.get())
+                new ParentsModelAssembler().toModel(optionalParents.get())
         );
     }
 }

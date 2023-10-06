@@ -44,13 +44,13 @@ public class CommonController {
         Optional<User> optionalUser = commonService.findUser(request);
 
         if (optionalUser.isEmpty()) {
-            throw new Exception400("ID 혹은 Password가 잘못되었습니다.1");
+            throw new Exception400("ID 혹은 Password가 잘못되었습니다.");
         }
 
         User user = optionalUser.get();
 
         if (!commonService.passwordCheck(request.password(), user.getPassword())) {
-            throw new Exception400("ID 혹은 Password가 잘못되었습니다.2");
+            throw new Exception400("ID 혹은 Password가 잘못되었습니다.");
         }
 
 //        if (!user.getPassword().equals(request.password())) {

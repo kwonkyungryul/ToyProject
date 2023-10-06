@@ -67,7 +67,7 @@ tasks.named('asciidoctor') {
 bootJar {
     dependsOn asciidoctor
     // TODO 'build/docs/asciidoc' 은 어디서 나온 경로인가
-    from ("${asciidoctor.outputDir}/html5") {
+    from ("build/docs/asciidoc") {
         into 'static/docs'
     }
 }

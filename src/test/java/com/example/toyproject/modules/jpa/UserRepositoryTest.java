@@ -41,7 +41,7 @@ public class UserRepositoryTest {
         assertNotEquals(users.size(), 0);
 
         assertEquals(users.get(0).getUsername(), "yoon");
-        assertEquals(users.get(0).getPassword(), "1234");
+        assertEquals(users.get(0).getPassword(), "$2a$10$aMjDZYj.qOC8MpMtNBA7o.d69GUfDFtuVPpooW6il6Z9S2gb1oLuW");
         assertEquals(users.get(0).getRole(), RoleType.ACADEMY);
         assertEquals(users.get(0).getStatus(), UserStatus.ACTIVE);
     }
@@ -56,7 +56,7 @@ public class UserRepositoryTest {
             var result = optionalUser.get();
 
             assertEquals(result.getUsername(), "yoon");
-            assertEquals(result.getPassword(), "1234");
+            assertEquals(result.getPassword(), "$2a$10$aMjDZYj.qOC8MpMtNBA7o.d69GUfDFtuVPpooW6il6Z9S2gb1oLuW");
             assertEquals(result.getRole(), RoleType.ACADEMY);
             assertEquals(result.getStatus(), UserStatus.ACTIVE);
 

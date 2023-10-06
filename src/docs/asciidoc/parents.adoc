@@ -1,0 +1,53 @@
+ifndef::snippets[]
+:snippets: ../../../build/generated-snippets
+endif::[]
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+:operation-http-request-title: Example Request
+:operation-http-response-title: Example Response
+
+= 학부모 API 문서
+
+== SAVE API
+
+=== 요청 정보 [HTTP]
+include::{snippets}/parents-join-success/http-request.adoc[]
+
+=== 요청 정보 [Request Body]
+include::{snippets}/parents-join-success/request-body.adoc[]
+
+=== 요청 정보 [Request Field]
+include::{snippets}/parents-join-success/request-fields.adoc[]
+
+=== 응답 정보 [HTTP]
+include::{snippets}/parents-join-success/http-response.adoc[]
+
+=== 응답 정보 [Response Body]
+include::{snippets}/parents-join-success/response-body.adoc[]
+
+=== 응답 정보 [성공]
+==== [Fields]
+include::{snippets}/parents-join-success/response-fields.adoc[]
+
+==== [Link]
+include::{snippets}/parents-join-success/links.adoc[]
+
+=== 응답 정보 [실패]
+* 학부모 이름이 없음
+
+==== [Fields]
+include::{snippets}/parents-join-fail/response-fields.adoc[]
+
+==== [Response Body]
+include::{snippets}/parents-join-fail/response-body.adoc[]
+
+==== [CURL]
+include::{snippets}/parents-join-fail/curl-request.adoc[]
+
+==== [HTTPIE]
+include::{snippets}/parents-join-fail/httpie-request.adoc[]
+

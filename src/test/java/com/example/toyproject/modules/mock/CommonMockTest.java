@@ -110,7 +110,7 @@ public class CommonMockTest {
                 Optional.of(UserConst.academyUser)
         );
 
-        given(commonService.passwordCheck(UserConst.academyUser.getPassword(), request.password())).willReturn(
+        given(commonService.passwordCheck(request.password(), UserConst.academyUser.getPassword())).willReturn(
                 false
         );
 
@@ -143,7 +143,7 @@ public class CommonMockTest {
                 Optional.of(UserConst.academyUser)
         );
 
-        given(commonService.passwordCheck(UserConst.academyUser.getPassword(), request.password())).willReturn(
+        given(commonService.passwordCheck(request.password(), UserConst.academyUser.getPassword())).willReturn(
                 true
         );
 
